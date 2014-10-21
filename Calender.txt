@@ -1,0 +1,10 @@
+Da := @Date(@Year(@Now); @Month(@Now); 1);
+Pos := @Weekday(Da);
+Ret := @Repeat("   "; 7 - Pos);
+@For(
+  i := Da; i < @Adjust(Da; 0; 1; 0; 0; 0; 0); i := @Adjust(i; 0; 0; 1; 0; 0; 0)
+;
+  Ret := Ret+ @Right("  " + @Text(@Day(i)); 2) + @If(@Weekday(i) = 7; "|"; " ")
+);
+@Explode(Ret; "|")
+
