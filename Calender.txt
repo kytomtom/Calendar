@@ -1,10 +1,12 @@
-Da := @Date(@Year(@Now); @Month(@Now); 1);
-Pos := @Weekday(Da);
-Ret := @Repeat("   "; 7 - Pos);
+REM "Lotus Notes 7.0.1 式言語";
+Da := @Now;
+St := @Date(@Year(Da); @Month(Da); 1);
+Pos := @Weekday(St);
+Ret := @Text(@Year(St)) + "/" + @Right("00" + @Text(@Month(St)); 2) + "|";
+Ret := Ret + "Su Mo Tu We Th Fr Sa|" + @Repeat("   "; 7 - Pos);
 @For(
-  i := Da; i < @Adjust(Da; 0; 1; 0; 0; 0; 0); i := @Adjust(i; 0; 0; 1; 0; 0; 0)
+	i := St; i < @Adjust(St; 0; 1; 0; 0; 0; 0); i := @Adjust(i; 0; 0; 1; 0; 0; 0)
 ;
-  Ret := Ret+ @Right("  " + @Text(@Day(i)); 2) + @If(@Weekday(i) = 7; "|"; " ")
+	Ret := Ret + @Right("  " + @Text(@Day(i)); 2) + @If(@Weekday(i) = 7; "|"; " ")
 );
 @Explode(Ret; "|")
-
